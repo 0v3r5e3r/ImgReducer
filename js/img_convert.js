@@ -29,11 +29,7 @@ function onOptionSelection(){
     var s = document.getElementById("preset-select");
     var u = document.getElementById("preset_upload");
 
-    console.log(s.selectedIndex);
-    console.log(s.children.length-1);
-    console.log(s.selectedIndex + " == " + (s.children.length-1) + " is " + (s.selectedIndex == (s.children.length-1)));
-
-    if(s.selectionIndex == s.children.length-1){
+    if (s.selectedIndex == s.children.length-1){
         // Show it
         u.style = "display: block;";
     } else {
@@ -65,6 +61,30 @@ async function load_preset(id)
     });
 }
 
+async function read_uploaded_json(file) {
+    return new Promise((resolve,reject) => {
+
+        if(!file){
+            reject("No file provided");
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            try{
+                const jsonData = JSON.parse(e.target.result);
+                resolve(jsonData);
+            } catch(error) {
+                reject(error);
+                return;
+            }
+        }
+
+        reader.readAsText(file);
+
+    });
+}
+
 async function convert() {
     var input_canvas = document.getElementById("original_image");
     var output_canvas = document.getElementById("output_image");
@@ -74,7 +94,19 @@ async function convert() {
     var out_ctx = output_canvas.getContext("2d");
 
     const preset_option = document.getElementById("preset-select");
-    const preset = await load_preset(preset_option.selectedIndex);
+    var preset = await load_preset(preset_option.selectedIndex);
+
+    if (document.getElementById("preset-select").selectedIndex == document.getElementById("preset-select").children.length-1){
+        // We have uploaded our own preset
+        if (document.getElementById("preset_upload").files.length == 0){
+            alert("You must upload a json file first.");
+            return;
+        }
+        
+        preset = await read_uploaded_json(document.getElementById("preset_upload").files[0]);
+    }
+
+
     const palette = preset.colors;
     const bg_color = preset.background_color;
     var targetWidth = preset.targetWidth;
