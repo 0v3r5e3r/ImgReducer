@@ -250,10 +250,7 @@ function downloadFullImage()
 async function reset()
 {
     const input = document.getElementById("image_input");
-    console.log(input);
-
     const base64 = await imageToBase64(input.files[0]);
-    console.log(base64);
 
     var img = new Image();
     img.onload = function()
@@ -280,12 +277,11 @@ async function reset()
             drawWidth = canvas.height * aspect_img;
         }
 
-        var offsetX = (canvas.width - drawWidth) / 2;
-        var offsetY = (canvas.height - drawHeight) / 2;
+        canvas.width = drawWidth;
+        canvas.height = drawHeight;
 
-        ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
-
-        console.log(ctx.getImageData(offsetX + 100, offsetY + 100, 1, 1));
+        ctx = canvas.getContext("2d")
+        ctx.drawImage(img, 0, 0);
     }
     img.src = base64;
 }
