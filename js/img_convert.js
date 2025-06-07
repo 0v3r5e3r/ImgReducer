@@ -1,7 +1,7 @@
 async function loadPresetList()
 {
     try{
-        const res = await fetch("/presets/presetList.json");
+        const res = await fetch("./presets/presetList.json");
         const files = await res.json();
 
         const select = document.getElementById("preset-select");
@@ -59,7 +59,7 @@ async function imageToBase64(file)
 async function load_preset(id)
 {
     return new Promise((resolve,reject) => {
-        fetch("/presets/" + id.toString() + ".json")
+        fetch("./presets/" + id.toString() + ".json")
         .then(response => resolve(response.json()))
         .catch(error => reject(error));
     });
