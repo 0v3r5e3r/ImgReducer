@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            #source_bg {
+                width: 33%;
+                height: 100%;
+                position: absolute;
+                left: 0px;
+                top: 0px;
+                text-align: center;
+            }
+
+            #arrorw {
+                width: 33%;
+                height: 100%;
+                position: absolute;
+                left: 33%;
+                top: 0px;
+                text-align: center;
+            }
+
+            #output_bg {
+                width: 33%;
+                height: 100%;
+                position: absolute;
+                left: 66%;
+                top: 0px;
+                text-align: center;
+            }
+        </style>
+    </head>
+
+    <body onload="loadPresetList()">
+        <div id="bg">
+            <div id="source_bg">
+                <input type="file" id="image_input" onchange="reset()" accept="image/*"/><br>
+                <canvas id="original_image" width="500" height="500"></canvas>
+            </div>
+            <div id="arrorw">
+                <select id="preset-select" onchange="onOptionSelection()">
+                    <option value="">Loading presets...</option>
+                </select><br>
+                <input type="file" id="preset_upload" accept=".json" style="display:none" value="Upload Custom Preset" />
+                <input type="button" id="image_convert" onclick="convert()" value="Convert" />
+
+            </div>
+            <div id="output_bg">
+                <canvas id="output_image" width="500" height="500"></canvas>
+                <button id="fulldownload" onclick="downloadFullImage()" style="display:none">Download Full-size Image</button>
+            </div>
+        </div>
+    </body>
+
+    <script src="./js/img_convert.js"></script>
+</html>
