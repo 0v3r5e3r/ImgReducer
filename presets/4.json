@@ -5,42 +5,42 @@
             255,
             182,
             193
-        ], // Light Pink
+        ], 
         [
             135,
             206,
             250
-        ], // Light Sky Blue
+        ], 
         [
             221,
             160,
             221
-        ], // Plum
+        ], 
         [
             255,
             240,
             245
-        ], // Lavender Blush
+        ], 
         [
             176,
             224,
             230
-        ], // Powder Blue
+        ], 
         [
             255,
             228,
             225
-        ], // Misty Rose
+        ], 
         [
             240,
             255,
             255
-        ], // Azure
+        ], 
         [
             245,
             245,
             245
-        ] // White Smoke
+        ] 
     ],
     "background_color": [
         255,

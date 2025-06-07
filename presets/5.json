@@ -5,32 +5,32 @@
             255,
             20,
             147
-        ], // Hot Pink
+        ],
         [
             50,
             255,
             0
-        ], // Electric Green
+        ],
         [
             0,
             100,
             255
-        ], // Off Blue
+        ],
         [
             255,
             255,
             0
-        ], // Yellow
+        ],
         [
             0,
             0,
             0
-        ], // Black
+        ], 
         [
             255,
             255,
             255
-        ] // White
+        ]
     ],
     "background_color": [
         0,
