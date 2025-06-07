@@ -102,7 +102,7 @@ async function convert() {
             alert("You must upload a json file first.");
             return;
         }
-        
+
         preset = await read_uploaded_json(document.getElementById("preset_upload").files[0]);
     }
 
@@ -278,42 +278,38 @@ function downloadFullImage()
         URL.revokeObjectURL(url);
     }, "image/png");
 }
-
-async function reset()
-{
+async function reset() {
     const input = document.getElementById("image_input");
     const base64 = await imageToBase64(input.files[0]);
 
-    var img = new Image();
-    img.onload = function()
-    {
-        var canvas = document.getElementById("original_image");
-        var ctx = canvas.getContext("2d");
-        
-        ctx.fillStyle = "rgba(0 0 0 0)";
-        ctx.fillRect(0,0,canvas.width, canvas.height);
+    const img = new Image();
+    img.onload = function () {
+        const canvas = document.getElementById("original_image");
+        const ctx = canvas.getContext("2d");
 
-        var imgWidth = img.naturalWidth;
-        var imgHeight = img.naturalHeight;
+        const maxCanvasWidth = canvas.width;
+        const maxCanvasHeight = canvas.height;
 
-        var aspect_canvas = canvas.width / canvas.height;
-        var aspect_img = imgWidth / imgHeight;
+        const imgWidth = img.naturalWidth;
+        const imgHeight = img.naturalHeight;
 
-        let drawWidth, drawHeight;
+        let scale = Math.min(
+            maxCanvasWidth / imgWidth,
+            maxCanvasHeight / imgHeight,
+            1 // prevent upscaling
+        );
 
-        if (aspect_img > aspect_canvas){
-            drawWidth = canvas.width;
-            drawHeight = canvas.width / aspect_img;
-        } else {
-            drawHeight = canvas.height;
-            drawWidth = canvas.height * aspect_img;
-        }
+        const drawWidth = Math.floor(imgWidth * scale);
+        const drawHeight = Math.floor(imgHeight * scale);
 
+        // Resize canvas to match new image size exactly
         canvas.width = drawWidth;
         canvas.height = drawHeight;
 
-        ctx = canvas.getContext("2d")
-        ctx.drawImage(img, 0, 0);
+        const newCtx = canvas.getContext("2d");
+        newCtx.clearRect(0, 0, drawWidth, drawHeight);
+        newCtx.drawImage(img, 0, 0, drawWidth, drawHeight);
     }
+
     img.src = base64;
 }
