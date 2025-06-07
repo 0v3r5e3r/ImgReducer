@@ -261,7 +261,7 @@ async function reset()
         var canvas = document.getElementById("original_image");
         var ctx = canvas.getContext("2d");
         
-        ctx.fillStyle = "black";
+        ctx.fillStyle = "rgba(0 0 0 0)";
         ctx.fillRect(0,0,canvas.width, canvas.height);
 
         var imgWidth = img.naturalWidth;
