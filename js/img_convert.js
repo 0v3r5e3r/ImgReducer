@@ -61,7 +61,7 @@ async function load_preset(id)
     });
 }
 
-sync function read_uploaded_json(file) {
+async function read_uploaded_json(file) {
     return new Promise((resolve, reject) => {
         if (!file) {
             reject(new Error("No file provided"));
@@ -96,8 +96,7 @@ async function convert() {
     var out_ctx = output_canvas.getContext("2d");
 
     const preset_option = document.getElementById("preset-select");
-    var preset = await load_preset(preset_option.selectedIndex);
-
+    var preset= null;
     if (document.getElementById("preset-select").selectedIndex == document.getElementById("preset-select").children.length-1){
         // We have uploaded our own preset
         if (document.getElementById("preset_upload").files.length == 0){
@@ -106,6 +105,8 @@ async function convert() {
         }
 
         preset = await read_uploaded_json(document.getElementById("preset_upload").files[0]);
+    }else{
+        preset = await load_preset(preset_option.selectedIndex);
     }
 
 
