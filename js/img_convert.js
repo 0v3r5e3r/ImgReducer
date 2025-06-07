@@ -288,10 +288,10 @@ async function reset() {
     const img = new Image();
     img.onload = function () {
         const canvas = document.getElementById("original_image");
-        const ctx = canvas.getContext("2d");
-
-        const maxCanvasWidth = canvas.width;
-        const maxCanvasHeight = canvas.height;
+        
+        const rect = canvas.getBoundingClientRect();
+        const maxCanvasWidth = rect.width;
+        const maxCanvasHeight = rect.height;
 
         const imgWidth = img.naturalWidth;
         const imgHeight = img.naturalHeight;
@@ -299,15 +299,19 @@ async function reset() {
         let scale = Math.min(
             maxCanvasWidth / imgWidth,
             maxCanvasHeight / imgHeight,
-            1 // prevent upscaling
+            1
         );
 
         const drawWidth = Math.floor(imgWidth * scale);
         const drawHeight = Math.floor(imgHeight * scale);
+        
+        console.log("Draw Width: " + drawWidth.toString() + "\nDraw Height: " + drawHeight.toString());
 
         // Resize canvas to match new image size exactly
         canvas.width = drawWidth;
         canvas.height = drawHeight;
+        canvas.style.width = drawWidth + "px";
+        canvas.style.height = drawHeight + "px";
 
         const newCtx = canvas.getContext("2d");
         newCtx.clearRect(0, 0, drawWidth, drawHeight);
