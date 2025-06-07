@@ -2,5 +2,7 @@
     {"id": 0, "name": "Kindle Paperwhite"},
     {"id": 1, "name": "Kindle Colorshoft"},
     {"id": 2, "name": "Thermal Printer"},
-    {"id": 3, "name": "4-bit RGB Color"}
+    {"id": 3, "name": "4-bit RGB Color"},
+    {"id": 4, "name": "Pastel Test 1"},
+    {"id": 5, "name": "Off-color Primaries"}
 ]

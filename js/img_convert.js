@@ -80,6 +80,12 @@ async function convert() {
     const targetWidth = preset.targetWidth;
     const targetHeight = preset.targetHeight;
 
+    if (targetWidth == -1 || targetHeight == -1)
+    {
+        targetWidth = input_canvas.width;
+        targetHeight = input_canvas.height;
+    }
+
     // 1. Get parent container size (in pixels)
     const parentStyle = getComputedStyle(output_parent);
     const maxParentWidth = parseInt(parentStyle.width);
