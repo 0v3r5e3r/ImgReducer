@@ -77,8 +77,8 @@ async function convert() {
     const preset = await load_preset(preset_option.selectedIndex);
     const palette = preset.colors;
     const bg_color = preset.background_color;
-    const targetWidth = preset.targetWidth;
-    const targetHeight = preset.targetHeight;
+    var targetWidth = preset.targetWidth;
+    var targetHeight = preset.targetHeight;
 
     if (targetWidth == -1 || targetHeight == -1)
     {
