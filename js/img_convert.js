@@ -61,27 +61,29 @@ async function load_preset(id)
     });
 }
 
-async function read_uploaded_json(file) {
-    return new Promise((resolve,reject) => {
-
-        if(!file){
-            reject("No file provided");
+sync function read_uploaded_json(file) {
+    return new Promise((resolve, reject) => {
+        if (!file) {
+            reject(new Error("No file provided"));
             return;
         }
 
         const reader = new FileReader();
-        reader.onload = (e) => {
-            try{
-                const jsonData = JSON.parse(e.target.result);
+
+        reader.onload = () => {
+            try {
+                const jsonData = JSON.parse(reader.result);
                 resolve(jsonData);
-            } catch(error) {
-                reject(error);
-                return;
+            } catch (error) {
+                reject(new Error("Invalid JSON format"));
             }
-        }
+        };
+
+        reader.onerror = () => {
+            reject(new Error("Error reading file"));
+        };
 
         reader.readAsText(file);
-
     });
 }
 
